@@ -199,6 +199,6 @@ If you have any questions or need help, please:
 
 **⭐ Star this repository if you find it helpful!**
 
-Made with ❤️ by the Blockchain Development Team
+Made with ❤️ 
 
 </div>
