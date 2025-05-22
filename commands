@@ -1,0 +1,28 @@
+cd ProductAuth
+
+# 2. Install backend (Hardhat) dependencies
+cd backend
+npm install
+
+# 3. Compile the smart contract
+npx hardhat compile
+
+# 4. Start the local Hardhat Ethereum network
+npx hardhat node
+
+# 5. Deploy the contract (in a separate terminal)
+npx hardhat run scripts/deploy.js --network localhost
+
+# 6. Note the deployed contract address and save it in the frontend .env
+cd ../frontend
+
+# 7. Create a .env file in frontend directory with:
+# (replace with actual contract address from deployment)
+echo "REACT_APP_PRIVATE_KEY=your_local_test_private_key" > .env
+echo "REACT_APP_CONTRACT_ADDRESS=your_contract_address_here" >> .env
+
+# 8. Install frontend dependencies
+npm install
+
+# 9. Start the React frontend
+npm start

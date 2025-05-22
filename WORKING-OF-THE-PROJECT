@@ -1,0 +1,94 @@
+ProductAuth Project Documentation
+1. Project Overview
+ProductAuth is a decentralized application (dApp) that uses blockchain technology to authenticate products. It allows users to:
+
+Add new products by their unique Product ID.
+
+Verify if a product is genuine.
+
+Mark a product as fake if it is counterfeit.
+
+All product statuses are stored securely on an Ethereum blockchain smart contract, ensuring transparency and immutability.
+
+2. How It Works
+The Smart Contract manages product states: None, Added, Verified, or Fake.
+
+The React Frontend provides a simple interface with an input box for Product ID and three buttons to perform actions:
+
+Add Product
+
+Verify Product
+
+Mark Fake
+
+Each button calls the corresponding smart contract function via ethers.js library and MetaMask or a local wallet.
+
+3. Smart Contract Explanation (ProductAuth.sol)
+Enum Status — Tracks product state: None (not registered), Added (newly added), Verified (confirmed genuine), Fake (marked counterfeit).
+
+Mapping productStatus — Stores the status of each product keyed by its Product ID (a uint256).
+
+addProduct(uint256 productId) — Adds a product if not already added.
+
+verifyProduct(uint256 productId) — Verifies a product if currently Added.
+
+markFake(uint256 productId) — Marks a product Fake if Added or Verified.
+
+getProductStatus(uint256 productId) — Returns the current status of a product.
+
+4. Frontend Explanation (App.js)
+Uses React hooks (useState, useEffect) to manage UI state.
+
+Connects to Ethereum network using ethers.js and the contract ABI.
+
+Uses environment variables for private key and contract address.
+
+Functions handle button clicks to call contract methods and show simple status messages like:
+
+"Product 123 added."
+
+"Product 123 verified."
+
+"Product 123 marked as fake."
+
+Or error messages like "Product already exists."
+
+5. Setup and Run Instructions (Commands Only)
+bash
+Copy
+Edit
+# Clone the repo (assuming you have the project on GitHub)
+git clone <your-repo-url>
+cd <your-project-folder>/frontend
+
+# Install dependencies for frontend
+npm install
+
+# Start local Hardhat Ethereum node (in separate terminal)
+cd <your-project-folder>/hardhat
+npx hardhat node
+
+# Deploy the smart contract (if not already deployed)
+npx hardhat run scripts/deploy.js --network localhost
+
+# Set your .env variables with PRIVATE_KEY and CONTRACT_ADDRESS
+
+# Start React frontend
+npm start
+6. Mentor Recital Script (What to Say When Showing the Project)
+"Here is the ProductAuth dApp interface.
+The input box lets me enter a product ID — a unique identifier for each product.
+There are three buttons:
+
+Add Product adds a product ID to the blockchain if it doesn’t exist already. This ensures the product is registered.
+
+Verify Product marks the product as genuine only if it was previously added.
+
+Mark Fake labels the product as counterfeit if it was added or verified before.
+
+Behind the scenes, these buttons interact with our smart contract on the Ethereum blockchain, which keeps track of product statuses in a secure and transparent way.
+
+If I try an invalid action, like adding a product that exists or verifying a product that isn't added, the app shows a friendly message explaining what happened instead of confusing blockchain errors.
+
+This system helps combat counterfeit products by allowing anyone to verify authenticity in a decentralized, tamper-proof way."
+
